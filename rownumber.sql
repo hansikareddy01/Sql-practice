@@ -17,3 +17,15 @@ order by order_purchase_timestamp desc
 ) as rn from orders
 )
 select * from cte where rn=1
+-- find top 3 most expensive items in each order
+with expen as(
+select order_id, product_id,order_item_id ,price, row_number()
+over(
+partition by order_id 
+order by price desc
+)as rn from order_items)
+select * from expen where rn<=3
+--find top 5 customers from each state based on number of orders
+with top5 as(select customer_unique_id ,customer_state , row_number over(
+partition by customer_state order by count()
+))
