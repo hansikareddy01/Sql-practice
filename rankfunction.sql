@@ -1,4 +1,5 @@
-
+--rank() function
+-- the rank number differs from rownumber function rank number 
 --q1 rank products based on their price
 select product_id, rank() over(
 order by price desc
